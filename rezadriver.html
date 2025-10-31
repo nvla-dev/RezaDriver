@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RezaDriver — Bali (Soft Animated)</title>
+  <meta name="description" content="RezaDriver Bali — layanan sopir dan tur lokal. Kontak: WhatsApp +62 812-2742-8094 | Instagram @rezaadie45">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent: #00b3b3;
+      --accent-2: #ffdd57;
+      --glass: rgba(255,255,255,0.08);
+      --muted: rgba(255,255,255,0.85);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;color:#fff}
+
+    /* Background: beautiful Bali seascape with soft overlay */
+    body{
+      background-image: linear-gradient(to bottom, rgba(6,21,36,0.45), rgba(6,21,36,0.28)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+      background-size:cover;background-position:center center;overflow-x:hidden;
+    }
+
+    header{position:sticky;top:0;z-index:60;background:linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25));backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:space-between;padding:14px 28px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .mark{width:52px;height:52px;border-radius:12px;background:linear-gradient(180deg,var(--accent), #008b8b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,0.35)}
+    .logo h1{font-size:18px;margin:0;color:var(--accent-2)}
+
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
+
+    .hero{padding:80px 22px 36px;text-align:center}
+    .hero h2{font-size:36px;margin-bottom:10px;color:var(--accent-2);text-shadow:0 6px 30px rgba(0,0,0,0.45)}
+    .hero p{max-width:920px;margin:0 auto;font-size:16px;color:rgba(255,255,255,0.9)}
+
+    /* gentle sun & birds animation layer */
+    .sky-layer{position:fixed;left:0;right:0;top:0;height:320px;pointer-events:none;z-index:10}
+    .sun{position:absolute;right:6%;top:30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#fff7d6 0%, #ffd27a 50%, #ffb36b 100%);filter:blur(0.6px);opacity:0.95;box-shadow:0 18px 60px rgba(255,140,40,0.15);animation:slowFloat 20s linear infinite}
+    @keyframes slowFloat{0%{transform:translateY(0)}50%{transform:translateY(6px)}100%{transform:translateY(0)}}
+
+    .bird{position:absolute;left:6%;top:40px;opacity:0.9}
+    .bird svg{width:80px;height:40px;animation:birdFly 18s linear infinite}
+    @keyframes birdFly{0%{transform:translateX(-60vw) translateY(0) scale(0.9)}50%{transform:translateX(30vw) translateY(-8px) scale(1)}100%{transform:translateX(100vw) translateY(0) scale(0.9)}}
+
+    /* main container */
+    .container{max-width:1140px;margin:40px auto;padding:20px;position:relative;z-index:20}
+
+    .panel{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+
+    /* left: intro + services */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border-radius:14px;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,0.35)}
+    .intro{display:flex;gap:18px;align-items:center}
+    .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(180deg,#ffd8a6,#ffb37a);display:flex;align-items:center;justify-content:center;color:#8b3f00;font-weight:800;font-size:24px;box-shadow:0 8px 20px rgba(0,0,0,0.35)}
+
+    .intro h3{margin:0;font-size:20px;color:var(--accent-2)}
+    .intro p{margin:6px 0 0;color:var(--muted)}
+
+    /* services grid with animated gentle icons */
+    .services{margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .service{background:rgba(255,255,255,0.03);padding:12px;border-radius:12px;display:flex;align-items:center;gap:12px}
+    .icon-wrap{width:64px;height:64px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center}
+
+    /* animated icons (realistic soft) */
+    .icon-car{position:relative}
+    .car-svg{width:44px;height:28px;transform-origin:center;animation:carMove 3.6s linear infinite}
+    @keyframes carMove{0%{transform:translateX(-6px)}50%{transform:translateX(6px)}100%{transform:translateX(-6px)}}
+
+    .icon-wave svg{width:50px;height:30px;animation:waveMove 3.2s ease-in-out infinite}
+    @keyframes waveMove{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+
+    .icon-plane svg{width:46px;height:26px;animation:planeFloat 6s linear infinite}
+    @keyframes planeFloat{0%{transform:translate(-12px,6px) rotate(-6deg)}50%{transform:translate(12px,-6px) rotate(-2deg)}100%{transform:translate(-12px,6px) rotate(-6deg)}}
+
+    .service h4{margin:0;font-size:15px;color:var(--accent-2)}
+    .service p{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    /* right: contact card */
+    .contact-card{position:sticky;top:86px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:18px;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,0.4)}
+    .contact-card h4{margin:0 0 8px;color:var(--accent-2)}
+    .contact-row{display:flex;gap:10px;align-items:center}
+    .contact-btn{flex:1;background:linear-gradient(90deg,var(--accent), #008b8b);border:none;padding:10px;border-radius:10px;color:white;font-weight:700;cursor:pointer}
+    .contact-small{font-size:13px;color:var(--muted);margin-top:8px}
+
+    /* destinations preview */
+    .destinations{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+    .dest-item{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,0.03);padding:8px;border-radius:10px}
+    .dest-item img{width:76px;height:56px;object-fit:cover;border-radius:8px}
+    .dest-item h5{margin:0;font-size:14px;color:var(--accent-2)}
+    .dest-item p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+
+    footer{margin:40px 0;text-align:center;color:rgba(255,255,255,0.8);font-size:14px}
+
+    /* responsive */
+    @media (max-width:900px){.panel{grid-template-columns:1fr}.contact-card{position:relative;top:0}.services{grid-template-columns:1fr}.hero h2{font-size:28px}}
+  </style>
+</head>
+<body>
+  <div class="sky-layer">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="bird" aria-hidden="true">
+      <!-- simple bird svg -->
+      <svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 22c6-6 10-8 18-6 6 1 10 6 20 6" fill="none" stroke="#fff" stroke-opacity="0.85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo">
+      <div class="mark">RZ</div>
+      <div>
+        <h1>RezaDriver</h1>
+        <div style="font-size:12px;color:rgba(255,255,255,0.8)">Driver & Tour — Bali</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Layanan</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <h2>Transport & Tour Profesional di Bali — Aman & Nyaman</h2>
+      <p>RezaDriver menyediakan antar-jemput bandara, private tour, rental mobil dengan sopir, dan layanan tur yang dipersonalisasi. Cocok untuk wisatawan lokal maupun internasional.</p>
+    </section>
+
+    <div class="panel">
+      <div class="card">
+        <div class="intro">
+          <div class="avatar">RZ</div>
+          <div>
+            <h3>Halo, saya Reza</h3>
+            <p>Sopir profesional & guide lokal. Berpengalaman melayani wisata domestik dan internasional di seluruh Bali.</p>
+            <div style="margin-top:8px;font-size:13px;color:var(--muted)">Bahasa: Indonesia, English (basic)</div>
+          </div>
+        </div>
+
+        <section id="services" style="margin-top:20px">
+          <h4 style="color:var(--accent-2);margin:0 0 10px">Layanan Unggulan</h4>
+          <div class="services">
+            <div class="service">
+              <div class="icon-wrap icon-car" aria-hidden="true">
+                <!-- car svg gentle movement -->
+                <svg class="car-svg" viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="10" width="40" height="12" rx="3" fill="#fff" fill-opacity="0.95"/>
+                  <circle cx="18" cy="24" r="4" fill="#111"/>
+                  <circle cx="38" cy="24" r="4" fill="#111"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Antar & Jemput</h4>
+                <p>Bandara, pelabuhan, hotel — tepat waktu dan nyaman.</p>
+              </div>
+            </div>
+
+            <div class="service">
+              <div class="icon-wrap icon-wave" aria-hidden="true">
+                <!-- wave svg gentle -->
+                <svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 18c6-6 10-6 16-2s8 4 12 2 8-6 16-2v12H0V18z" fill="#fff" fill-opacity="0.9"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Wisata Pantai</h4>
+                <p>Kuta, Seminyak, Nusa Dua, dan spot sunset terbaik.</p>
+              </div>
+            </div>
+
+            <div class="service">
+              <div class="icon-wrap icon-plane" aria-hidden="true">
+                <!-- plane svg soft float -->
+                <svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 16 L20 12 L28 16 L20 20 Z" fill="#fff" fill-opacity="0.95"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Airport Transfer</h4>
+                <p>Pick-up & drop-off dengan rute efisien.</p>
+              </div>
+            </div>
+
+            <div class="service">
+              <div class="icon-wrap" aria-hidden="true">
+                <!-- camera icon (static subtle) -->
+                <svg viewBox="0 0 64 32" width="46" height="28" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="6" y="8" width="48" height="18" rx="3" fill="#fff" fill-opacity="0.95"/>
+                  <circle cx="32" cy="17" r="5" fill="#111"/>
+                </svg>
+              </div>
+              <div>
+                <h4>Foto Trip</h4>
+                <p>Sesi dokumentasi momen liburan Anda.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style="margin-top:20px">
+          <h4 style="color:var(--accent-2);margin:0 0 10px">Rute & Destinasi Populer</h4>
+          <div class="destinations">
+            <div class="dest-item">
+              <img src="https://images.unsplash.com/photo-1549887534-3db1bd59dcca?auto=format&fit=crop&w=600&q=80" alt="Kuta">
+              <div>
+                <h5>Pantai Kuta</h5>
+                <p>Spot sunset, surfing, dan hiburan malam.</p>
+              </div>
+            </div>
+            <div class="dest-item">
+              <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Tanah Lot">
+              <div>
+                <h5>Tanah Lot</h5>
+                <p>Pura laut ikonik untuk menikmati sunset magis.</p>
+              </div>
+            </div>
+            <div class="dest-item">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Ubud">
+              <div>
+                <h5>Ubud & Tegallalang</h5>
+                <p>Budaya, sawah terasering, dan suasana tenang.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="contact-card" id="kontak">
+        <h4>Hubungi Reza</h4>
+        <p style="margin:6px 0;color:var(--muted)">Cepat & responsif — klik untuk menghubungi langsung</p>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <button class="contact-btn" onclick="openWhatsApp()">📱 WhatsApp</button>
+          <button class="contact-btn" onclick="openInstagram()">📸 Instagram</button>
+        </div>
+        <div class="contact-small">Nomor: <strong id="waShown">—</strong></div>
+        <div class="contact-small">Instagram: <strong id="igShown">—</strong></div>
+
+        <div style="margin-top:12px;border-top:1px dashed rgba(255,255,255,0.04);padding-top:12px">
+          <div style="font-size:13px;color:var(--muted)">Layanan cepat:</div>
+          <ul style="margin-top:8px;color:var(--muted);font-size:13px;padding-left:18px">
+            <li>Estimasi harga jujur & transparan</li>
+            <li>Driver ramah & berpengalaman</li>
+            <li>Fleksibilitas rute & waktu</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      &copy; 2025 RezaDriver Bali • Kontak: +62 812-2742-8094 • Instagram: @rezaadie45
+    </footer>
+  </main>
+
+  <script>
+    // Contact handlers — show and open links
+    function openWhatsApp(){
+      const wa = '+6281227428094';
+      document.getElementById('waShown').innerText = '+62 812-2742-8094';
+      // open chat in new tab
+      const url = 'https://wa.me/' + wa.replace(/[^0-9]/g,'');
+      window.open(url, '_blank');
+    }
+    function openInstagram(){
+      const ig = 'https://instagram.com/rezaadie45';
+      document.getElementById('igShown').innerText = '@rezaadie45';
+      window.open(ig, '_blank');
+    }
+    // Accessibility: ensure prefetched images are ok (no heavy scripts)
+  </script>
+</body>
+</html>
