@@ -3,272 +3,1499 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RezaDriver — Bali (Soft Animated)</title>
-  <meta name="description" content="RezaDriver Bali — layanan sopir dan tur lokal. Kontak: WhatsApp +62 812-2742-8094 | Instagram @rezaadie45">
+  <title>RezaDriver — Bali | Driver Wisata & Airport Transfer</title>
+  <meta name="description" content="RezaDriver Bali — driver wisata & airport transfer. Private tour, custom itinerary, jemput bandara. WhatsApp +62 812-2742-8094 | IG @rezaadie45">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- LocalBusiness schema (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"RezaDriver Bali",
+    "description":"Driver wisata & airport transfer di Bali. Private tour, custom itinerary, jemput bandara.",
+    "telephone":"+6281227428094",
+    "areaServed":"Bali",
+    "sameAs":["https://instagram.com/rezaadie45"]
+  }
+  </script>
+
   <style>
     :root{
-      --accent: #00b3b3;
-      --accent-2: #ffdd57;
-      --glass: rgba(255,255,255,0.08);
-      --muted: rgba(255,255,255,0.85);
+      --bg:#0b0d10;
+      --fg:#ffffff;
+      --muted:rgba(255,255,255,.78);
+      --muted2:rgba(255,255,255,.60);
+
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.035);
+      --stroke:rgba(255,255,255,.10);
+
+      --shadow:0 18px 62px rgba(0,0,0,.62);
+      --shadow2:0 10px 30px rgba(0,0,0,.45);
+
+      --radius:20px;
+      --radius2:16px;
+
+      --btn:rgba(255,255,255,.10);
+      --btnHover:rgba(255,255,255,.14);
+      --solid:#ffffff;
+      --solidText:#0b0d10;
+
+      --focus:rgba(255,255,255,.25);
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;color:#fff}
-
-    /* Background: beautiful Bali seascape with soft overlay */
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--fg)}
     body{
-      background-image: linear-gradient(to bottom, rgba(6,21,36,0.45), rgba(6,21,36,0.28)),
-                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
-      background-size:cover;background-position:center center;overflow-x:hidden;
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(900px 600px at 100% 10%, rgba(255,255,255,.08), transparent 55%),
+        linear-gradient(to bottom, rgba(0,0,0,.74), rgba(0,0,0,.58)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=80');
+      background-size:cover;
+      background-position:center;
+      overflow-x:hidden;
     }
 
-    header{position:sticky;top:0;z-index:60;background:linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25));backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:space-between;padding:14px 28px}
-    .logo{display:flex;align-items:center;gap:12px}
-    .logo .mark{width:52px;height:52px;border-radius:12px;background:linear-gradient(180deg,var(--accent), #008b8b);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,0.35)}
-    .logo h1{font-size:18px;margin:0;color:var(--accent-2)}
+    a{color:inherit}
+    .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .hidden{display:none !important}
 
-    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
+    /* ===== Header ===== */
+    header{
+      position:sticky;top:0;z-index:80;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(0,0,0,.74), rgba(0,0,0,.40));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 18px;
+    }
 
-    .hero{padding:80px 22px 36px;text-align:center}
-    .hero h2{font-size:36px;margin-bottom:10px;color:var(--accent-2);text-shadow:0 6px 30px rgba(0,0,0,0.45)}
-    .hero p{max-width:920px;margin:0 auto;font-size:16px;color:rgba(255,255,255,0.9)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:260px}
+    .brand h1{font-size:15px;margin:0;letter-spacing:.2px}
+    .brand .sub{font-size:12px;color:var(--muted2);margin-top:2px}
 
-    /* gentle sun & birds animation layer */
-    .sky-layer{position:fixed;left:0;right:0;top:0;height:320px;pointer-events:none;z-index:10}
-    .sun{position:absolute;right:6%;top:30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#fff7d6 0%, #ffd27a 50%, #ffb36b 100%);filter:blur(0.6px);opacity:0.95;box-shadow:0 18px 60px rgba(255,140,40,0.15);animation:slowFloat 20s linear infinite}
-    @keyframes slowFloat{0%{transform:translateY(0)}50%{transform:translateY(6px)}100%{transform:translateY(0)}}
+    /* CLEAN LOGO (always visible) */
+    .logo{
+      width:46px;height:46px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.20);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      display:flex;align-items:center;justify-content:center;
+      user-select:none;
+      overflow:hidden;
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .logo:hover{
+      transform: translateY(-1px) scale(1.02);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      border-color: rgba(255,255,255,.26);
+    }
+    .logo svg{width:34px;height:34px}
+    .logo .stroke{
+      stroke: rgba(255,255,255,.92);
+      stroke-width:2.2;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .logo .fill{fill: rgba(255,255,255,.92);}
+    .logo:hover .car{animation: carWiggle .75s ease-in-out infinite;}
+    @keyframes carWiggle{
+      0%{transform:translateX(0)}
+      50%{transform:translateX(2px)}
+      100%{transform:translateX(0)}
+    }
 
-    .bird{position:absolute;left:6%;top:40px;opacity:0.9}
-    .bird svg{width:80px;height:40px;animation:birdFly 18s linear infinite}
-    @keyframes birdFly{0%{transform:translateX(-60vw) translateY(0) scale(0.9)}50%{transform:translateX(30vw) translateY(-8px) scale(1)}100%{transform:translateX(100vw) translateY(0) scale(0.9)}}
+    nav{display:flex;gap:10px;align-items:center}
+    nav a{
+      text-decoration:none;
+      font-weight:900;
+      font-size:12.5px;
+      color:var(--muted);
+      padding:10px 10px;
+      border-radius:14px;
+      border:1px solid transparent;
+      opacity:.95;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+    nav a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+      transform: translateY(-1px);
+      opacity:1;
+    }
 
-    /* main container */
-    .container{max-width:1140px;margin:40px auto;padding:20px;position:relative;z-index:20}
+    .top-actions{display:flex;gap:10px;align-items:center}
+    .pill{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--fg);
+      font-weight:900;
+      font-size:12px;
+      cursor:pointer;
+      transition: background .15s ease, transform .15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pill:hover{background: rgba(255,255,255,.10); transform: translateY(-1px)}
+    .pill:focus{outline:2px solid var(--focus); outline-offset:2px}
 
-    .panel{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+    .hamburger{
+      width:46px;height:46px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:none;
+      align-items:center;justify-content:center;
+      cursor:pointer;
+      transition: background .15s ease, transform .15s ease;
+    }
+    .hamburger:hover{background: rgba(255,255,255,.10); transform: translateY(-1px)}
+    .hamburger svg{width:22px;height:22px;opacity:.95}
 
-    /* left: intro + services */
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));border-radius:14px;padding:22px;box-shadow:0 12px 40px rgba(0,0,0,0.35)}
-    .intro{display:flex;gap:18px;align-items:center}
-    .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(180deg,#ffd8a6,#ffb37a);display:flex;align-items:center;justify-content:center;color:#8b3f00;font-weight:800;font-size:24px;box-shadow:0 8px 20px rgba(0,0,0,0.35)}
+    /* ===== Layout ===== */
+    .container{max-width:1180px;margin:26px auto;padding:18px;position:relative;z-index:10}
 
-    .intro h3{margin:0;font-size:20px;color:var(--accent-2)}
-    .intro p{margin:6px 0 0;color:var(--muted)}
+    .hero{
+      padding:46px 6px 10px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:22px;
+      align-items:start;
+    }
+    .hero h2{
+      margin:0 0 10px;
+      font-size:40px;line-height:1.08;
+      letter-spacing:-.5px;
+      text-shadow: 0 18px 60px rgba(0,0,0,.65);
+    }
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:15px;
+      max-width:760px;
+    }
 
-    /* services grid with animated gentle icons */
-    .services{margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .service{background:rgba(255,255,255,0.03);padding:12px;border-radius:12px;display:flex;align-items:center;gap:12px}
-    .icon-wrap{width:64px;height:64px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center}
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      border:1px solid rgba(255,255,255,.16);
+      background: var(--btn);
+      color:var(--fg);
+      padding:12px 14px;
+      border-radius:16px;
+      font-weight:900;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: var(--btnHover)}
+    .btn.primary{
+      background: var(--solid);
+      color: var(--solidText);
+      border-color: rgba(255,255,255,.25);
+    }
+    .btn.primary:hover{background: rgba(255,255,255,.92)}
+    .btn:focus{outline:2px solid var(--focus); outline-offset:2px}
 
-    /* animated icons (realistic soft) */
-    .icon-car{position:relative}
-    .car-svg{width:44px;height:28px;transform-origin:center;animation:carMove 3.6s linear infinite}
-    @keyframes carMove{0%{transform:translateX(-6px)}50%{transform:translateX(6px)}100%{transform:translateX(-6px)}}
+    .hero-card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card .line{
+      display:flex;justify-content:space-between;gap:12px;
+      padding:12px;
+      border-radius:16px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.08);
+      margin-bottom:10px;
+    }
+    .hero-card .k{font-size:12px;color:var(--muted2);font-weight:900}
+    .hero-card .v{font-size:13px;color:var(--fg);font-weight:900}
+    .hero-card .v.dim{color:rgba(255,255,255,.55)}
 
-    .icon-wave svg{width:50px;height:30px;animation:waveMove 3.2s ease-in-out infinite}
-    @keyframes waveMove{0%{transform:translateY(0)}50%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 400px;
+      gap:22px;
+      align-items:start;
+      margin-top:16px;
+    }
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:20px;
+      box-shadow: var(--shadow);
+    }
+    .section-title{
+      margin:18px 0 10px;
+      font-size:13px;
+      color:var(--muted2);
+      letter-spacing:.55px;
+      text-transform:uppercase;
+      font-weight:900;
+    }
 
-    .icon-plane svg{width:46px;height:26px;animation:planeFloat 6s linear infinite}
-    @keyframes planeFloat{0%{transform:translate(-12px,6px) rotate(-6deg)}50%{transform:translate(12px,-6px) rotate(-2deg)}100%{transform:translate(-12px,6px) rotate(-6deg)}}
+    /* Intro + chips */
+    .intro{display:flex;gap:16px;align-items:center}
+    .avatar{
+      width:86px;height:86px;border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:22px;letter-spacing:.6px;
+      user-select:none;
+    }
+    .intro h3{margin:0;font-size:18px}
+    .intro p{margin:6px 0 0;color:var(--muted);font-size:13.5px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .chip{
+      font-size:12px;color:var(--muted);
+      padding:8px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      font-weight:900;
+    }
 
-    .service h4{margin:0;font-size:15px;color:var(--accent-2)}
-    .service p{margin:4px 0 0;color:var(--muted);font-size:13px}
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .service{
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px;border-radius:18px;
+      display:flex;gap:12px;align-items:flex-start;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .service:hover{
+      transform: translateY(-2px);
+      background: rgba(0,0,0,.22);
+      border-color: rgba(255,255,255,.12);
+    }
+    .icon{
+      width:46px;height:46px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;
+      flex:0 0 auto;
+    }
+    .service h4{margin:0;font-size:14px;font-weight:900}
+    .service p{margin:4px 0 0;color:var(--muted);font-size:12.5px}
 
-    /* right: contact card */
-    .contact-card{position:sticky;top:86px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:18px;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,0.4)}
-    .contact-card h4{margin:0 0 8px;color:var(--accent-2)}
-    .contact-row{display:flex;gap:10px;align-items:center}
-    .contact-btn{flex:1;background:linear-gradient(90deg,var(--accent), #008b8b);border:none;padding:10px;border-radius:10px;color:white;font-weight:700;cursor:pointer}
-    .contact-small{font-size:13px;color:var(--muted);margin-top:8px}
+    /* Gallery (interactive) */
+    .gallery-head{
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+      margin-top:6px;
+    }
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding:8px 10px;
+      border-radius:999px;
+      color:var(--fg);
+      font-weight:900;
+      font-size:11.5px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .filter:hover{transform: translateY(-1px); background: rgba(255,255,255,.10)}
+    .filter.active{
+      background: rgba(255,255,255,.92);
+      color: var(--solidText);
+      border-color: rgba(255,255,255,.30);
+    }
 
-    /* destinations preview */
-    .destinations{display:flex;flex-direction:column;gap:10px;margin-top:16px}
-    .dest-item{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,0.03);padding:8px;border-radius:10px}
-    .dest-item img{width:76px;height:56px;object-fit:cover;border-radius:8px}
-    .dest-item h5{margin:0;font-size:14px;color:var(--accent-2)}
-    .dest-item p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+    .gallery{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+    }
+    .g-item{
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 10px 28px rgba(0,0,0,.38);
+      transform: translateZ(0);
+      cursor:pointer;
+    }
+    .g-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+      transition: transform .35s ease;
+    }
+    .g-item:hover img{transform: scale(1.06)}
+    .g-cap{
+      position:absolute;left:0;right:0;bottom:0;
+      padding:12px 12px 10px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.78));
+      color: rgba(255,255,255,.95);
+    }
+    .g-cap strong{display:block;font-size:13px;font-weight:900}
+    .g-cap span{display:block;font-size:12px;color:rgba(255,255,255,.78);margin-top:2px}
 
-    footer{margin:40px 0;text-align:center;color:rgba(255,255,255,0.8);font-size:14px}
+    .span-6{grid-column: span 6;}
+    .span-4{grid-column: span 4;}
+    .span-8{grid-column: span 8;}
+    .h-220{height:220px}
+    .h-260{height:260px}
+    .h-300{height:300px}
 
-    /* responsive */
-    @media (max-width:900px){.panel{grid-template-columns:1fr}.contact-card{position:relative;top:0}.services{grid-template-columns:1fr}.hero h2{font-size:28px}}
+    /* Aside */
+    .aside{
+      position:sticky;top:86px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(0,0,0,.24), rgba(0,0,0,.10));
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .aside h4{margin:0 0 6px;font-size:16px;font-weight:900}
+    .aside p{margin:0;color:var(--muted);font-size:13px}
+    .aside .small{font-size:12px;color:var(--muted);margin-top:10px}
+    .aside .small strong{color:var(--fg)}
+    .aside .box{
+      margin-top:12px;
+      padding:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .aside .box .row{
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+      padding:10px 10px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      margin-top:8px;
+    }
+    .aside .box .row:first-child{margin-top:0}
+    .aside .k{font-size:12px;color:var(--muted2);font-weight:900}
+    .aside .v{font-size:12.5px;font-weight:900}
+    .aside .v.dim{color:rgba(255,255,255,.55)}
+
+    /* Testimonials */
+    .carousel{
+      margin-top:10px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .carousel-inner{display:flex;transition: transform .45s cubic-bezier(.2,.9,.2,1)}
+    .testimonial{min-width:100%;padding:16px}
+    .testimonial .q{font-size:13px;color:rgba(255,255,255,.92);line-height:1.6;margin:0 0 10px}
+    .testimonial .who{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--muted);font-size:12px}
+    .carousel-actions{
+      display:flex;gap:10px;justify-content:space-between;align-items:center;
+      padding:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .dots{display:flex;gap:6px;align-items:center}
+    .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: rgba(255,255,255,.22);
+      border:1px solid rgba(255,255,255,.18);
+      cursor:pointer;
+    }
+    .dot.active{background: rgba(255,255,255,.90)}
+    .iconbtn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--fg);
+      border-radius:14px;
+      padding:10px 12px;
+      font-weight:900;
+      cursor:pointer;
+      transition: background .15s ease, transform .15s ease;
+    }
+    .iconbtn:hover{background: rgba(255,255,255,.10); transform: translateY(-1px)}
+    .iconbtn:focus{outline:2px solid var(--focus); outline-offset:2px}
+
+    /* FAQ */
+    .faq{margin-top:10px;display:flex;flex-direction:column;gap:10px}
+    details{
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:900;
+      font-size:13.5px;
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0;color:var(--muted);font-size:12.8px;line-height:1.55}
+
+    footer{margin:30px 0 14px;text-align:center;color:rgba(255,255,255,0.72);font-size:13px}
+
+    /* Drawer (mobile menu) */
+    .drawer-backdrop{
+      position:fixed;inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+      z-index:120;
+      display:none;
+    }
+    .drawer{
+      position:fixed;top:0;right:0;height:100%;width:min(360px, 92vw);
+      background: rgba(10,12,16,.96);
+      border-left:1px solid rgba(255,255,255,.10);
+      z-index:130;
+      transform: translateX(100%);
+      transition: transform .25s ease;
+      padding:16px;
+      display:flex;flex-direction:column;gap:12px;
+    }
+    .drawer.open{transform: translateX(0)}
+    .drawer-backdrop.show{display:block}
+    .drawer a{
+      text-decoration:none;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color: var(--fg);
+      font-weight:900;
+    }
+    .drawer .x{
+      align-self:flex-end;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius:16px;
+      width:46px;height:46px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    /* Modals */
+    .modal-backdrop{
+      position:fixed;inset:0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+      z-index:200;
+      display:none;
+      padding:18px;
+    }
+    .modal{
+      max-width:900px;
+      margin: 36px auto;
+      background: rgba(10,12,16,.96);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modal-head{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modal-head h4{margin:0;font-size:14px;font-weight:900;color:rgba(255,255,255,.92)}
+    .modal-close{
+      width:46px;height:46px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;
+    }
+    .modal-body{padding:16px}
+
+    .lightbox{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    .lightbox img{
+      width:100%;
+      height:440px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+    }
+    .lb-meta{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding:14px;
+      height:440px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .lb-meta strong{font-size:16px;font-weight:900}
+    .lb-meta p{margin:8px 0 0;color:var(--muted);font-size:12.8px;line-height:1.55}
+    .lb-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+
+    /* Booking form */
+    .form-grid{display:grid;grid-template-columns: 1fr 1fr; gap:10px}
+    .field label{display:block;font-size:12px;color:var(--muted2);font-weight:900;margin:0 0 6px}
+    .field input, .field select, .field textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--fg);
+      font-family: inherit;
+      outline:none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus{
+      border-color: rgba(255,255,255,.25);
+      box-shadow: 0 0 0 3px rgba(255,255,255,.08);
+    }
+    .field textarea{min-height:92px;resize:vertical}
+
+    .help{margin-top:10px;color:var(--muted);font-size:12.5px}
+    .result{
+      margin-top:14px;
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .result .big{font-weight:900}
+    .result .big.dim{color:rgba(255,255,255,.55)}
+
+    /* Sticky WA */
+    .wa-float{
+      position:fixed;right:16px;bottom:16px;z-index:160;
+      border-radius:999px;
+      padding:12px 14px;
+      background: var(--solid);
+      color: var(--solidText);
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow: var(--shadow2);
+      font-weight:900;
+      cursor:pointer;
+      display:flex;align-items:center;gap:10px;
+      transition: transform .12s ease;
+    }
+    .wa-float:hover{transform: translateY(-1px)}
+    .wa-float small{font-weight:900;opacity:.70}
+
+    /* Motion respect */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+    }
+
+    @media (max-width:1060px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .aside{position:relative;top:0}
+      nav{display:none}
+      .hamburger{display:flex}
+      .services{grid-template-columns:1fr}
+      .hero h2{font-size:30px}
+      .lightbox{grid-template-columns:1fr}
+      .lightbox img, .lb-meta{height:auto}
+    }
+    @media (max-width:720px){
+      .span-8,.span-6,.span-4{grid-column: span 12;}
+      .h-300,.h-260,.h-220{height:240px}
+      .form-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
-<body>
-  <div class="sky-layer">
-    <div class="sun" aria-hidden="true"></div>
-    <div class="bird" aria-hidden="true">
-      <!-- simple bird svg -->
-      <svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 22c6-6 10-8 18-6 6 1 10 6 20 6" fill="none" stroke="#fff" stroke-opacity="0.85" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
 
+<body>
   <header>
-    <div class="logo">
-      <div class="mark">RZ</div>
+    <div class="brand">
+      <div class="logo" id="logoBtn" title="RezaDriver" aria-label="RezaDriver logo">
+        <!-- Clean SVG Logo: R + road + tiny car (always visible) -->
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path class="stroke" d="M14 34V14h11c5 0 8 3 8 7s-3 7-8 7H14" />
+          <path class="stroke" d="M23 28l10 6" />
+          <path class="stroke" d="M10 38c8-4 20-4 28 0" />
+          <g class="car">
+            <path class="stroke" d="M18 36h8" />
+            <circle class="fill" cx="19" cy="37" r="1.1" />
+            <circle class="fill" cx="25" cy="37" r="1.1" />
+          </g>
+        </svg>
+      </div>
+
       <div>
         <h1>RezaDriver</h1>
-        <div style="font-size:12px;color:rgba(255,255,255,0.8)">Driver & Tour — Bali</div>
+        <div class="sub" data-i18n="subtitle">Driver Wisata & Airport Transfer — Bali</div>
       </div>
     </div>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Layanan</a>
-      <a href="#kontak">Kontak</a>
+
+    <nav aria-label="Primary navigation">
+      <a href="#services" data-i18n="nav_services">Layanan</a>
+      <a href="#gallery" data-i18n="nav_gallery">Wisata Bali</a>
+      <a href="#testi" data-i18n="nav_testi">Testimoni</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <a href="#kontak" data-i18n="nav_contact">Kontak</a>
     </nav>
+
+    <div class="top-actions">
+      <button class="pill" id="langBtn" aria-label="Toggle language">ID / EN</button>
+      <button class="pill" onclick="openBooking()" data-i18n="btn_booking">Booking</button>
+      <button class="hamburger" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="white" stroke-opacity=".9" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="hero" id="home">
-      <h2>Transport & Tour Profesional di Bali — Aman & Nyaman</h2>
-      <p>RezaDriver menyediakan antar-jemput bandara, private tour, rental mobil dengan sopir, dan layanan tur yang dipersonalisasi. Cocok untuk wisatawan lokal maupun internasional.</p>
+  <!-- Mobile drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+  <aside class="drawer" id="drawer" aria-label="Mobile menu">
+    <div class="x" id="drawerClose" aria-label="Close menu">✕</div>
+    <a href="#services" onclick="closeDrawer()" data-i18n="nav_services">Layanan</a>
+    <a href="#gallery" onclick="closeDrawer()" data-i18n="nav_gallery">Wisata Bali</a>
+    <a href="#testi" onclick="closeDrawer()" data-i18n="nav_testi">Testimoni</a>
+    <a href="#faq" onclick="closeDrawer()" data-i18n="nav_faq">FAQ</a>
+    <a href="#kontak" onclick="closeDrawer()" data-i18n="nav_contact">Kontak</a>
+    <button class="btn primary" onclick="openBooking();closeDrawer()" data-i18n="btn_booking">Booking</button>
+    <button class="btn" onclick="openWhatsApp();closeDrawer()" data-i18n="btn_wa">Chat WhatsApp</button>
+  </aside>
+
+  <main class="container" id="home">
+    <section class="hero">
+      <div>
+        <h2 data-i18n="hero_title">Driver Wisata Bali yang Rapi & Nyaman — Jalan-jalan + Jemput Bandara</h2>
+        <p data-i18n="hero_desc">
+          Private tour, custom itinerary, antar-jemput bandara, hotel, dan spot wisata populer.
+          Tinggal chat WhatsApp — cepat dibalas.
+        </p>
+
+        <div class="cta-row">
+          <button class="btn primary" onclick="openBooking()" data-i18n="cta_booking">Booking Cepat</button>
+          <button class="btn" onclick="openWhatsApp()" data-i18n="cta_wa">Chat WhatsApp</button>
+          <button class="btn" onclick="scrollToId('gallery')" data-i18n="cta_gallery">Lihat Wisata Bali</button>
+        </div>
+
+        <div class="help" data-i18n="hero_tip">
+          Tips: Klik <strong>Booking Cepat</strong> untuk format pesan otomatis (biar lebih cepat confirm).
+        </div>
+      </div>
+
+      <div class="hero-card" aria-label="Quick facts">
+        <div class="line"><div class="k" data-i18n="q1k">Fokus</div><div class="v" data-i18n="q1v">Tour & Airport Transfer</div></div>
+        <div class="line"><div class="k" data-i18n="q2k">Area</div><div class="v" data-i18n="q2v">Seluruh Bali</div></div>
+        <div class="line"><div class="k" data-i18n="q3k">Gaya</div><div class="v" data-i18n="q3v">Aman • Nyaman • Profesional</div></div>
+        <div class="line"><div class="k" data-i18n="q4k">Estimasi</div><div class="v dim">—</div></div>
+      </div>
     </section>
 
-    <div class="panel">
+    <section class="grid">
       <div class="card">
         <div class="intro">
           <div class="avatar">RZ</div>
           <div>
-            <h3>Halo, saya Reza</h3>
-            <p>Sopir profesional & guide lokal. Berpengalaman melayani wisata domestik dan internasional di seluruh Bali.</p>
-            <div style="margin-top:8px;font-size:13px;color:var(--muted)">Bahasa: Indonesia, English (basic)</div>
+            <h3 data-i18n="intro_title">Halo, saya Reza</h3>
+            <p data-i18n="intro_desc">Driver wisata & airport transfer. Bisa bantu rute paling nyaman, timing, dan itinerary sesuai kebutuhan kamu.</p>
+            <div class="chips">
+              <div class="chip" data-i18n="chip1">Respons cepat</div>
+              <div class="chip" data-i18n="chip2">Rute fleksibel</div>
+              <div class="chip" data-i18n="chip3">Ramah wisatawan</div>
+              <div class="chip" data-i18n="chip4">Pickup bandara</div>
+            </div>
           </div>
         </div>
 
-        <section id="services" style="margin-top:20px">
-          <h4 style="color:var(--accent-2);margin:0 0 10px">Layanan Unggulan</h4>
-          <div class="services">
-            <div class="service">
-              <div class="icon-wrap icon-car" aria-hidden="true">
-                <!-- car svg gentle movement -->
-                <svg class="car-svg" viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="6" y="10" width="40" height="12" rx="3" fill="#fff" fill-opacity="0.95"/>
-                  <circle cx="18" cy="24" r="4" fill="#111"/>
-                  <circle cx="38" cy="24" r="4" fill="#111"/>
-                </svg>
-              </div>
-              <div>
-                <h4>Antar & Jemput</h4>
-                <p>Bandara, pelabuhan, hotel — tepat waktu dan nyaman.</p>
-              </div>
-            </div>
-
-            <div class="service">
-              <div class="icon-wrap icon-wave" aria-hidden="true">
-                <!-- wave svg gentle -->
-                <svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 18c6-6 10-6 16-2s8 4 12 2 8-6 16-2v12H0V18z" fill="#fff" fill-opacity="0.9"/>
-                </svg>
-              </div>
-              <div>
-                <h4>Wisata Pantai</h4>
-                <p>Kuta, Seminyak, Nusa Dua, dan spot sunset terbaik.</p>
-              </div>
-            </div>
-
-            <div class="service">
-              <div class="icon-wrap icon-plane" aria-hidden="true">
-                <!-- plane svg soft float -->
-                <svg viewBox="0 0 64 32" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 16 L20 12 L28 16 L20 20 Z" fill="#fff" fill-opacity="0.95"/>
-                </svg>
-              </div>
-              <div>
-                <h4>Airport Transfer</h4>
-                <p>Pick-up & drop-off dengan rute efisien.</p>
-              </div>
-            </div>
-
-            <div class="service">
-              <div class="icon-wrap" aria-hidden="true">
-                <!-- camera icon (static subtle) -->
-                <svg viewBox="0 0 64 32" width="46" height="28" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="6" y="8" width="48" height="18" rx="3" fill="#fff" fill-opacity="0.95"/>
-                  <circle cx="32" cy="17" r="5" fill="#111"/>
-                </svg>
-              </div>
-              <div>
-                <h4>Foto Trip</h4>
-                <p>Sesi dokumentasi momen liburan Anda.</p>
-              </div>
+        <div id="services" class="section-title" data-i18n="services_title">Layanan Utama</div>
+        <div class="services">
+          <div class="service">
+            <div class="icon">✈️</div>
+            <div>
+              <h4 data-i18n="s1t">Airport Transfer</h4>
+              <p data-i18n="s1d">Jemput / antar Bandara DPS — hotel, villa, atau lokasi wisata (tepat waktu).</p>
             </div>
           </div>
-        </section>
-
-        <section style="margin-top:20px">
-          <h4 style="color:var(--accent-2);margin:0 0 10px">Rute & Destinasi Populer</h4>
-          <div class="destinations">
-            <div class="dest-item">
-              <img src="https://images.unsplash.com/photo-1549887534-3db1bd59dcca?auto=format&fit=crop&w=600&q=80" alt="Kuta">
-              <div>
-                <h5>Pantai Kuta</h5>
-                <p>Spot sunset, surfing, dan hiburan malam.</p>
-              </div>
-            </div>
-            <div class="dest-item">
-              <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Tanah Lot">
-              <div>
-                <h5>Tanah Lot</h5>
-                <p>Pura laut ikonik untuk menikmati sunset magis.</p>
-              </div>
-            </div>
-            <div class="dest-item">
-              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Ubud">
-              <div>
-                <h5>Ubud & Tegallalang</h5>
-                <p>Budaya, sawah terasering, dan suasana tenang.</p>
-              </div>
+          <div class="service">
+            <div class="icon">🧭</div>
+            <div>
+              <h4 data-i18n="s2t">Private Tour</h4>
+              <p data-i18n="s2d">Jalan-jalan seharian / setengah hari. Rute bisa custom sesuai minat.</p>
             </div>
           </div>
-        </section>
+          <div class="service">
+            <div class="icon">🏖️</div>
+            <div>
+              <h4 data-i18n="s3t">Beach & Sunset Trip</h4>
+              <p data-i18n="s3d">Kuta, Seminyak, Uluwatu, Nusa Dua — enak untuk sunset & foto.</p>
+            </div>
+          </div>
+          <div class="service">
+            <div class="icon">🌿</div>
+            <div>
+              <h4 data-i18n="s4t">Ubud & Nature Trip</h4>
+              <p data-i18n="s4d">Tegallalang, air terjun, coffee spot, dan vibe alam yang tenang.</p>
+            </div>
+          </div>
+        </div>
 
+        <div id="gallery" class="section-title" data-i18n="gallery_title">Foto Wisata Bali</div>
+
+        <div class="gallery-head">
+          <div class="help" style="margin:0" data-i18n="gallery_help">Klik foto untuk lihat lebih besar + tombol “Buat itinerary”.</div>
+          <div class="filters" aria-label="Gallery filter">
+            <button class="filter active" data-filter="all" onclick="setFilter('all')" data-i18n="f_all">All</button>
+            <button class="filter" data-filter="beach" onclick="setFilter('beach')" data-i18n="f_beach">Beach</button>
+            <button class="filter" data-filter="temple" onclick="setFilter('temple')" data-i18n="f_temple">Temple</button>
+            <button class="filter" data-filter="ubud" onclick="setFilter('ubud')" data-i18n="f_ubud">Ubud</button>
+            <button class="filter" data-filter="nature" onclick="setFilter('nature')" data-i18n="f_nature">Nature</button>
+          </div>
+        </div>
+
+        <!-- GALLERY (lengkap) -->
+        <div class="gallery" id="galleryGrid">
+          <!-- Kuta -->
+          <div class="g-item span-6 h-300" data-cat="beach"
+               data-title="Pantai Kuta"
+               data-desc="Sunset, jalan sore, dan vibe pantai populer."
+               data-plan="Rute: Kuta → Seminyak (sunset) → Dinner (opsional)">
+            <img loading="lazy" alt="Pantai Kuta"
+              src="https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Pantai Kuta</strong><span data-i18n="cap_kuta">Sunset & beach walk</span></div>
+          </div>
+
+          <!-- Seminyak -->
+          <div class="g-item span-6 h-300" data-cat="beach"
+               data-title="Seminyak"
+               data-desc="Beach club area, sunset spot, dan suasana santai."
+               data-plan="Rute: Seminyak → Sunset → Café / Dinner (opsional)">
+            <img loading="lazy" alt="Seminyak"
+              src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Seminyak</strong><span data-i18n="cap_semi">Relax & sunset</span></div>
+          </div>
+
+          <!-- Tanah Lot -->
+          <div class="g-item span-8 h-260" data-cat="temple"
+               data-title="Tanah Lot"
+               data-desc="Pura ikonik tepi laut. Waktu terbaik menjelang sunset."
+               data-plan="Rute: Hotel → Tanah Lot → Sunset → Kembali">
+            <img loading="lazy" alt="Tanah Lot"
+              src="https://images.unsplash.com/photo-1549953607-5c19a2bfe46d?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Tanah Lot</strong><span data-i18n="cap_tl">Temple + sunset</span></div>
+          </div>
+
+          <!-- Uluwatu -->
+          <div class="g-item span-4 h-260" data-cat="temple"
+               data-title="Uluwatu"
+               data-desc="Tebing laut & spot sunset dramatis."
+               data-plan="Rute: Uluwatu → Sunset → Jimbaran (opsional)">
+            <img loading="lazy" alt="Uluwatu"
+              src="https://images.unsplash.com/photo-1560953582-9dcd61d0d008?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Uluwatu</strong><span data-i18n="cap_ulu">Cliff sunset</span></div>
+          </div>
+
+          <!-- Ubud -->
+          <div class="g-item span-4 h-220" data-cat="ubud"
+               data-title="Ubud"
+               data-desc="Budaya, art market, dan suasana hijau."
+               data-plan="Rute: Ubud center → Market → Coffee spot">
+            <img loading="lazy" alt="Ubud"
+              src="https://images.unsplash.com/photo-1558980394-0c89f4c7b240?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Ubud</strong><span data-i18n="cap_ubud">Culture & chill</span></div>
+          </div>
+
+          <!-- Tegallalang -->
+          <div class="g-item span-8 h-220" data-cat="nature"
+               data-title="Tegallalang Rice Terrace"
+               data-desc="Sawah terasering yang cantik. Cocok pagi/sore."
+               data-plan="Rute: Ubud → Tegallalang → Coffee → Kembali">
+            <img loading="lazy" alt="Tegallalang"
+              src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Tegallalang</strong><span data-i18n="cap_teg">Rice terrace</span></div>
+          </div>
+
+          <!-- Waterfall -->
+          <div class="g-item span-6 h-260" data-cat="nature"
+               data-title="Waterfall Trip"
+               data-desc="Air terjun & suasana alam yang segar."
+               data-plan="Rute: Ubud → Waterfall → Lunch → Kembali">
+            <img loading="lazy" alt="Air terjun Bali"
+              src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Waterfall</strong><span data-i18n="cap_wf">Nature trip</span></div>
+          </div>
+
+          <!-- Nusa Penida -->
+          <div class="g-item span-6 h-260" data-cat="beach"
+               data-title="Nusa Penida"
+               data-desc="Trip island vibes (opsional) — view pantai spektakuler."
+               data-plan="Rencana: Penida day trip (atur jam & meeting point) — chat untuk opsi terbaik">
+            <img loading="lazy" alt="Nusa Penida"
+              src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Nusa Penida</strong><span data-i18n="cap_np">Island view</span></div>
+          </div>
+
+          <!-- Lempuyang Gate (temple vibe) -->
+          <div class="g-item span-6 h-300" data-cat="temple"
+               data-title="Lempuyang"
+               data-desc="Spot gerbang ikonik (timing & antrean perlu strategi)."
+               data-plan="Rute: Early start → Lempuyang → Spot sekitar → Kembali">
+            <img loading="lazy" alt="Lempuyang"
+              src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Lempuyang</strong><span data-i18n="cap_lemp">Iconic gate</span></div>
+          </div>
+
+          <!-- Bedugul -->
+          <div class="g-item span-6 h-300" data-cat="nature"
+               data-title="Bedugul"
+               data-desc="Udara dingin, danau, dan view pegunungan."
+               data-plan="Rute: Bedugul → Danau/spot foto → Coffee → Kembali">
+            <img loading="lazy" alt="Bedugul"
+              src="https://images.unsplash.com/photo-1582523456407-3ec2b26a9dd8?auto=format&fit=crop&w=1800&q=80">
+            <div class="g-cap"><strong>Bedugul</strong><span data-i18n="cap_bdg">Lake & mountain</span></div>
+          </div>
+        </div>
+
+        <div id="testi" class="section-title" data-i18n="testi_title">Testimoni</div>
+        <div class="carousel" aria-label="Testimonials carousel">
+          <div class="carousel-inner" id="carouselInner">
+            <div class="testimonial">
+              <p class="q" data-i18n="t1">“Driver sopan, rute enak, dan jadwal fleksibel. Liburan jadi nyaman.”</p>
+              <div class="who"><span>— Andi</span><span>⭐ 5/5</span></div>
+            </div>
+            <div class="testimonial">
+              <p class="q" data-i18n="t2">“Jemput bandara tepat waktu. Chat WA cepat dibalas. Recommended.”</p>
+              <div class="who"><span>— Sarah</span><span>⭐ 5/5</span></div>
+            </div>
+            <div class="testimonial">
+              <p class="q" data-i18n="t3">“Trip Ubud & Tegallalang rapi. Tahu timing yang pas buat foto.”</p>
+              <div class="who"><span>— Kevin</span><span>⭐ 5/5</span></div>
+            </div>
+          </div>
+          <div class="carousel-actions">
+            <button class="iconbtn" onclick="prevTesti()" aria-label="Previous testimonial">‹</button>
+            <div class="dots" id="dots"></div>
+            <button class="iconbtn" onclick="nextTesti()" aria-label="Next testimonial">›</button>
+          </div>
+        </div>
+
+        <div id="faq" class="section-title" data-i18n="faq_title">FAQ</div>
+        <div class="faq">
+          <details>
+            <summary><span data-i18n="f1q">Bisa booking mendadak?</span><span>＋</span></summary>
+            <p data-i18n="f1a">Bisa, selama jadwal tersedia. Paling aman chat WhatsApp dulu untuk cek ketersediaan.</p>
+          </details>
+          <details>
+            <summary><span data-i18n="f2q">Bisa custom itinerary jalan-jalan?</span><span>＋</span></summary>
+            <p data-i18n="f2a">Bisa. Tinggal kirim pickup, list destinasi, durasi, dan jam yang kamu mau.</p>
+          </details>
+          <details>
+            <summary><span data-i18n="f3q">Estimasi harga kok kosong?</span><span>＋</span></summary>
+            <p data-i18n="f3a">Aku kosongin supaya website tetap clean & profesional. Harga cepat dibalas via WhatsApp sesuai rute & durasi.</p>
+          </details>
+        </div>
       </div>
 
-      <aside class="contact-card" id="kontak">
-        <h4>Hubungi Reza</h4>
-        <p style="margin:6px 0;color:var(--muted)">Cepat & responsif — klik untuk menghubungi langsung</p>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <button class="contact-btn" onclick="openWhatsApp()">📱 WhatsApp</button>
-          <button class="contact-btn" onclick="openInstagram()">📸 Instagram</button>
-        </div>
-        <div class="contact-small">Nomor: <strong id="waShown">—</strong></div>
-        <div class="contact-small">Instagram: <strong id="igShown">—</strong></div>
+      <aside class="aside" id="kontak">
+        <h4 data-i18n="aside_title">Kontak</h4>
+        <p data-i18n="aside_desc">Chat WhatsApp untuk cek jadwal & rencana jalan-jalan.</p>
 
-        <div style="margin-top:12px;border-top:1px dashed rgba(255,255,255,0.04);padding-top:12px">
-          <div style="font-size:13px;color:var(--muted)">Layanan cepat:</div>
-          <ul style="margin-top:8px;color:var(--muted);font-size:13px;padding-left:18px">
-            <li>Estimasi harga jujur & transparan</li>
-            <li>Driver ramah & berpengalaman</li>
-            <li>Fleksibilitas rute & waktu</li>
-          </ul>
+        <div class="cta-row" style="margin-top:12px">
+          <button class="btn primary" style="flex:1" onclick="openWhatsApp()" data-i18n="btn_wa">Chat WhatsApp</button>
+          <button class="btn" style="flex:1" onclick="openInstagram()" data-i18n="btn_ig">Instagram</button>
+        </div>
+
+        <div class="small">WhatsApp: <strong id="waShown">+62 812-2742-8094</strong></div>
+        <div class="small">IG: <strong id="igShown">@rezaadie45</strong></div>
+
+        <div class="section-title" data-i18n="aside_quick">Info Singkat</div>
+        <div class="box">
+          <div class="row"><div class="k" data-i18n="aq1k">Layanan</div><div class="v" data-i18n="aq1v">Tour & Transfer</div></div>
+          <div class="row"><div class="k" data-i18n="aq2k">Pickup</div><div class="v" data-i18n="aq2v">Hotel / Bandara</div></div>
+          <div class="row"><div class="k" data-i18n="aq3k">Estimasi</div><div class="v dim">—</div></div>
+        </div>
+
+        <div class="help" data-i18n="aside_example">
+          <strong>Contoh pesan:</strong><br>
+          “Halo Reza, saya mau tour Bali. Tanggal __, pickup __, durasi __, destinasi __.”
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="btn" style="width:100%" onclick="openBooking()" data-i18n="btn_open_form">Buka Form Booking</button>
         </div>
       </aside>
-    </div>
+    </section>
 
     <footer>
-      &copy; 2025 RezaDriver Bali • Kontak: +62 812-2742-8094 • Instagram: @rezaadie45
+      &copy; 2025 RezaDriver Bali • WhatsApp: +62 812-2742-8094 • Instagram: @rezaadie45
     </footer>
   </main>
 
+  <!-- Sticky WA -->
+  <button class="wa-float" onclick="openWhatsApp()" aria-label="Chat WhatsApp sticky">
+    WhatsApp <small data-i18n="wa_small">Chat</small>
+  </button>
+
+  <!-- Gallery Lightbox Modal -->
+  <div class="modal-backdrop" id="galleryBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Gallery preview">
+      <div class="modal-head">
+        <h4 id="lbTitle">Preview</h4>
+        <button class="modal-close" onclick="closeGallery()" aria-label="Close gallery">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="lightbox">
+          <img id="lbImg" alt="Preview wisata Bali">
+          <div class="lb-meta">
+            <div>
+              <strong id="lbName">—</strong>
+              <p id="lbDesc">—</p>
+            </div>
+            <div class="lb-actions">
+              <button class="btn primary" onclick="sendItineraryToWA()" data-i18n="lb_cta">Buat itinerary via WhatsApp</button>
+              <button class="btn" onclick="closeGallery()" data-i18n="lb_back">Kembali</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-backdrop" id="bookingBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Booking form">
+      <div class="modal-head">
+        <h4 data-i18n="form_title">Form Booking Cepat</h4>
+        <button class="modal-close" onclick="closeBooking()" aria-label="Close booking">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field">
+            <label for="b_name" data-i18n="f_name">Nama</label>
+            <input id="b_name" placeholder="Nama Anda">
+          </div>
+          <div class="field">
+            <label for="b_date" data-i18n="f_date">Tanggal</label>
+            <input id="b_date" type="date">
+          </div>
+          <div class="field">
+            <label for="b_time" data-i18n="f_time">Jam pickup</label>
+            <input id="b_time" type="time">
+          </div>
+          <div class="field">
+            <label for="b_type" data-i18n="f_type">Layanan</label>
+            <select id="b_type">
+              <option data-i18n="opt_transfer">Airport Transfer</option>
+              <option data-i18n="opt_tour">Private Tour</option>
+              <option data-i18n="opt_beach">Beach & Sunset Trip</option>
+              <option data-i18n="opt_ubud">Ubud & Nature Trip</option>
+              <option data-i18n="opt_custom">Custom Itinerary</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="b_pickup" data-i18n="f_pickup">Pickup</label>
+            <input id="b_pickup" placeholder="Contoh: Bandara DPS / Hotel Seminyak">
+          </div>
+          <div class="field">
+            <label for="b_pax" data-i18n="f_pax">Penumpang</label>
+            <select id="b_pax">
+              <option>1–3</option>
+              <option>4–5</option>
+              <option>6+</option>
+            </select>
+          </div>
+
+          <div class="field" style="grid-column:1 / -1;">
+            <label for="b_plan" data-i18n="f_plan">Rencana destinasi</label>
+            <textarea id="b_plan" placeholder="Contoh: Kuta → Tanah Lot → Dinner Jimbaran"></textarea>
+          </div>
+        </div>
+
+        <div class="result">
+          <div>
+            <div style="font-size:12px;color:rgba(255,255,255,.60);font-weight:900" data-i18n="f_est">Estimasi</div>
+            <div class="big dim">—</div>
+          </div>
+          <button class="btn primary" onclick="sendBookingToWA()" data-i18n="f_send">Kirim ke WhatsApp</button>
+        </div>
+
+        <div class="help" data-i18n="f_note">
+          Setelah klik “Kirim ke WhatsApp”, pesan akan otomatis terisi. Tinggal tekan send.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Contact handlers — show and open links
-    function openWhatsApp(){
-      const wa = '+6281227428094';
-      document.getElementById('waShown').innerText = '+62 812-2742-8094';
-      // open chat in new tab
-      const url = 'https://wa.me/' + wa.replace(/[^0-9]/g,'');
-      window.open(url, '_blank');
+    // ===== Config =====
+    const WA_NUMBER = "6281227428094";
+    const WA_DISPLAY = "+62 812-2742-8094";
+    const IG_URL = "https://instagram.com/rezaadie45";
+
+    // ===== Helpers =====
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({behavior:"smooth", block:"start"});
     }
+
+    function openWhatsApp(customText){
+      const waShown = document.getElementById("waShown");
+      if (waShown) waShown.innerText = WA_DISPLAY;
+
+      const text = customText ? encodeURIComponent(customText) : "";
+      const url = "https://wa.me/" + WA_NUMBER + (text ? ("?text=" + text) : "");
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
     function openInstagram(){
-      const ig = 'https://instagram.com/rezaadie45';
-      document.getElementById('igShown').innerText = '@rezaadie45';
-      window.open(ig, '_blank');
+      const igShown = document.getElementById("igShown");
+      if (igShown) igShown.innerText = "@rezaadie45";
+      window.open(IG_URL, "_blank", "noopener,noreferrer");
     }
-    // Accessibility: ensure prefetched images are ok (no heavy scripts)
+
+    // Logo click = back to top
+    document.getElementById("logoBtn")?.addEventListener("click", ()=>scrollToId("home"));
+
+    // ===== Drawer =====
+    const drawer = document.getElementById("drawer");
+    const drawerBackdrop = document.getElementById("drawerBackdrop");
+    const menuBtn = document.getElementById("menuBtn");
+    const drawerClose = document.getElementById("drawerClose");
+
+    function openDrawer(){
+      drawer.classList.add("open");
+      drawerBackdrop.classList.add("show");
+      drawerBackdrop.setAttribute("aria-hidden","false");
+    }
+    function closeDrawer(){
+      drawer.classList.remove("open");
+      drawerBackdrop.classList.remove("show");
+      drawerBackdrop.setAttribute("aria-hidden","true");
+    }
+    menuBtn?.addEventListener("click", openDrawer);
+    drawerClose?.addEventListener("click", closeDrawer);
+    drawerBackdrop?.addEventListener("click", closeDrawer);
+
+    // ===== Gallery filter (no broken display) =====
+    function setFilter(cat){
+      document.querySelectorAll(".filter").forEach(b=>{
+        b.classList.toggle("active", b.dataset.filter === cat);
+      });
+      document.querySelectorAll("#galleryGrid .g-item").forEach(item=>{
+        const c = item.getAttribute("data-cat");
+        const show = (cat === "all") || (c === cat);
+        item.classList.toggle("hidden", !show);
+      });
+    }
+    // Ensure default show all
+    setFilter("all");
+
+    // ===== Gallery lightbox =====
+    const galleryBackdrop = document.getElementById("galleryBackdrop");
+    const lbImg = document.getElementById("lbImg");
+    const lbName = document.getElementById("lbName");
+    const lbDesc = document.getElementById("lbDesc");
+    const lbTitle = document.getElementById("lbTitle");
+    let lbPlanText = "";
+
+    function openGallery(item){
+      const img = item.querySelector("img");
+      lbImg.src = img.currentSrc || img.src;
+      lbName.textContent = item.dataset.title || "—";
+      lbDesc.textContent = item.dataset.desc || "—";
+      lbPlanText = item.dataset.plan || "";
+
+      galleryBackdrop.style.display = "block";
+      galleryBackdrop.setAttribute("aria-hidden","false");
+      lbTitle.textContent = (lang === "en" ? "Bali Spot — " : "Wisata Bali — ") + (item.dataset.title || "Preview");
+    }
+    function closeGallery(){
+      galleryBackdrop.style.display = "none";
+      galleryBackdrop.setAttribute("aria-hidden","true");
+    }
+    galleryBackdrop.addEventListener("click", (e)=>{
+      if (e.target === galleryBackdrop) closeGallery();
+    });
+
+    document.querySelectorAll("#galleryGrid .g-item").forEach(item=>{
+      item.addEventListener("click", ()=>openGallery(item));
+    });
+
+    function sendItineraryToWA(){
+      const msg =
+(lang === "en")
+? `Hi Reza, I’d like an itinerary for:
+${lbName.textContent}
+
+${lbPlanText}
+
+Date: __
+Pickup: __
+Time: __
+Passengers: __
+
+Thank you.`
+: `Halo Reza, saya mau itinerary untuk:
+${lbName.textContent}
+
+${lbPlanText}
+
+Tanggal: __
+Pickup: __
+Jam: __
+Penumpang: __
+
+Terima kasih.`;
+      openWhatsApp(msg);
+    }
+
+    // ===== Booking modal =====
+    const bookingBackdrop = document.getElementById("bookingBackdrop");
+    function openBooking(){
+      bookingBackdrop.style.display = "block";
+      bookingBackdrop.setAttribute("aria-hidden","false");
+    }
+    function closeBooking(){
+      bookingBackdrop.style.display = "none";
+      bookingBackdrop.setAttribute("aria-hidden","true");
+    }
+    bookingBackdrop.addEventListener("click", (e)=>{
+      if (e.target === bookingBackdrop) closeBooking();
+    });
+    document.addEventListener("keydown", (e)=>{
+      if (e.key === "Escape"){
+        if (bookingBackdrop.style.display === "block") closeBooking();
+        if (galleryBackdrop.style.display === "block") closeGallery();
+      }
+    });
+
+    function sendBookingToWA(){
+      const name = document.getElementById("b_name").value.trim() || "-";
+      const date = document.getElementById("b_date").value || "-";
+      const time = document.getElementById("b_time").value || "-";
+      const type = document.getElementById("b_type").value || "-";
+      const pickup = document.getElementById("b_pickup").value.trim() || "-";
+      const pax = document.getElementById("b_pax").value || "-";
+      const plan = document.getElementById("b_plan").value.trim() || "-";
+
+      const msg =
+(lang === "en")
+? `Hi Reza, I’d like to book.
+
+Name: ${name}
+Date: ${date}
+Pickup time: ${time}
+Service: ${type}
+Pickup: ${pickup}
+Passengers: ${pax}
+
+Plan / destinations:
+${plan}
+
+Thank you.`
+: `Halo Reza, saya mau booking.
+
+Nama: ${name}
+Tanggal: ${date}
+Jam pickup: ${time}
+Layanan: ${type}
+Pickup: ${pickup}
+Penumpang: ${pax}
+
+Rencana destinasi:
+${plan}
+
+Terima kasih.`;
+
+      openWhatsApp(msg);
+    }
+
+    // ===== Testimonials carousel =====
+    const inner = document.getElementById("carouselInner");
+    const dotsWrap = document.getElementById("dots");
+    const count = inner.children.length;
+    let idx = 0;
+    let timer = null;
+
+    function renderDots(){
+      dotsWrap.innerHTML = "";
+      for(let i=0;i<count;i++){
+        const d = document.createElement("div");
+        d.className = "dot" + (i===idx ? " active" : "");
+        d.addEventListener("click", ()=>go(i));
+        dotsWrap.appendChild(d);
+      }
+    }
+    function go(i){
+      idx = (i + count) % count;
+      inner.style.transform = `translateX(${-idx * 100}%)`;
+      renderDots();
+      resetTimer();
+    }
+    function nextTesti(){ go(idx + 1); }
+    function prevTesti(){ go(idx - 1); }
+
+    function resetTimer(){
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (timer) clearInterval(timer);
+      timer = setInterval(()=>nextTesti(), 5200);
+    }
+    renderDots();
+    resetTimer();
+
+    // ===== Language switch (FULL) =====
+    let lang = "id";
+    const dict = {
+      id: {
+        subtitle: "Driver Wisata & Airport Transfer — Bali",
+        nav_services: "Layanan",
+        nav_gallery: "Wisata Bali",
+        nav_testi: "Testimoni",
+        nav_faq: "FAQ",
+        nav_contact: "Kontak",
+        btn_booking: "Booking",
+
+        hero_title: "Driver Wisata Bali yang Rapi & Nyaman — Jalan-jalan + Jemput Bandara",
+        hero_desc: "Private tour, custom itinerary, antar-jemput bandara, hotel, dan spot wisata populer. Tinggal chat WhatsApp — cepat dibalas.",
+        cta_booking: "Booking Cepat",
+        cta_wa: "Chat WhatsApp",
+        cta_gallery: "Lihat Wisata Bali",
+        hero_tip: "Tips: Klik <strong>Booking Cepat</strong> untuk format pesan otomatis (biar lebih cepat confirm).",
+
+        q1k: "Fokus", q1v: "Tour & Airport Transfer",
+        q2k: "Area",  q2v: "Seluruh Bali",
+        q3k: "Gaya",  q3v: "Aman • Nyaman • Profesional",
+        q4k: "Estimasi",
+
+        intro_title: "Halo, saya Reza",
+        intro_desc: "Driver wisata & airport transfer. Bisa bantu rute paling nyaman, timing, dan itinerary sesuai kebutuhan kamu.",
+        chip1: "Respons cepat",
+        chip2: "Rute fleksibel",
+        chip3: "Ramah wisatawan",
+        chip4: "Pickup bandara",
+
+        services_title: "Layanan Utama",
+        s1t: "Airport Transfer",
+        s1d: "Jemput / antar Bandara DPS — hotel, villa, atau lokasi wisata (tepat waktu).",
+        s2t: "Private Tour",
+        s2d: "Jalan-jalan seharian / setengah hari. Rute bisa custom sesuai minat.",
+        s3t: "Beach & Sunset Trip",
+        s3d: "Kuta, Seminyak, Uluwatu, Nusa Dua — enak untuk sunset & foto.",
+        s4t: "Ubud & Nature Trip",
+        s4d: "Tegallalang, air terjun, coffee spot, dan vibe alam yang tenang.",
+
+        gallery_title: "Foto Wisata Bali",
+        gallery_help: "Klik foto untuk lihat lebih besar + tombol “Buat itinerary”.",
+        f_all: "All",
+        f_beach: "Beach",
+        f_temple: "Temple",
+        f_ubud: "Ubud",
+        f_nature: "Nature",
+
+        cap_kuta: "Sunset & beach walk",
+        cap_semi: "Relax & sunset",
+        cap_tl: "Temple + sunset",
+        cap_ulu: "Cliff sunset",
+        cap_ubud: "Culture & chill",
+        cap_teg: "Rice terrace",
+        cap_wf: "Nature trip",
+        cap_np: "Island view",
+        cap_lemp: "Iconic gate",
+        cap_bdg: "Lake & mountain",
+
+        testi_title: "Testimoni",
+        t1: "“Driver sopan, rute enak, dan jadwal fleksibel. Liburan jadi nyaman.”",
+        t2: "“Jemput bandara tepat waktu. Chat WA cepat dibalas. Recommended.”",
+        t3: "“Trip Ubud & Tegallalang rapi. Tahu timing yang pas buat foto.”",
+
+        faq_title: "FAQ",
+        f1q: "Bisa booking mendadak?",
+        f1a: "Bisa, selama jadwal tersedia. Paling aman chat WhatsApp dulu untuk cek ketersediaan.",
+        f2q: "Bisa custom itinerary jalan-jalan?",
+        f2a: "Bisa. Tinggal kirim pickup, list destinasi, durasi, dan jam yang kamu mau.",
+        f3q: "Estimasi harga kok kosong?",
+        f3a: "Aku kosongin supaya website tetap clean & profesional. Harga cepat dibalas via WhatsApp sesuai rute & durasi.",
+
+        aside_title: "Kontak",
+        aside_desc: "Chat WhatsApp untuk cek jadwal & rencana jalan-jalan.",
+        btn_wa: "Chat WhatsApp",
+        btn_ig: "Instagram",
+        aside_quick: "Info Singkat",
+        aq1k: "Layanan", aq1v: "Tour & Transfer",
+        aq2k: "Pickup",  aq2v: "Hotel / Bandara",
+        aq3k: "Estimasi",
+        aside_example: "<strong>Contoh pesan:</strong><br>“Halo Reza, saya mau tour Bali. Tanggal __, pickup __, durasi __, destinasi __.”",
+        btn_open_form: "Buka Form Booking",
+        wa_small: "Chat",
+
+        lb_cta: "Buat itinerary via WhatsApp",
+        lb_back: "Kembali",
+
+        form_title: "Form Booking Cepat",
+        f_name: "Nama",
+        f_date: "Tanggal",
+        f_time: "Jam pickup",
+        f_type: "Layanan",
+        f_pickup: "Pickup",
+        f_pax: "Penumpang",
+        f_plan: "Rencana destinasi",
+        f_est: "Estimasi",
+        f_send: "Kirim ke WhatsApp",
+        f_note: "Setelah klik “Kirim ke WhatsApp”, pesan akan otomatis terisi. Tinggal tekan send.",
+
+        opt_transfer: "Airport Transfer",
+        opt_tour: "Private Tour",
+        opt_beach: "Beach & Sunset Trip",
+        opt_ubud: "Ubud & Nature Trip",
+        opt_custom: "Custom Itinerary"
+      },
+
+      en: {
+        subtitle: "Tour Driver & Airport Transfer — Bali",
+        nav_services: "Services",
+        nav_gallery: "Bali Spots",
+        nav_testi: "Reviews",
+        nav_faq: "FAQ",
+        nav_contact: "Contact",
+        btn_booking: "Book",
+
+        hero_title: "Bali Tour Driver — Trips + Airport Pickup",
+        hero_desc: "Private tours, custom itineraries, airport transfers, hotels, and Bali’s best spots. Fast reply on WhatsApp.",
+        cta_booking: "Quick Booking",
+        cta_wa: "Chat WhatsApp",
+        cta_gallery: "View Bali Spots",
+        hero_tip: "Tip: Use <strong>Quick Booking</strong> to generate a ready-to-send WhatsApp message.",
+
+        q1k: "Focus", q1v: "Tours & Airport Transfer",
+        q2k: "Coverage", q2v: "All Bali",
+        q3k: "Style", q3v: "Safe • Comfortable • Professional",
+        q4k: "Estimate",
+
+        intro_title: "Hi, I’m Reza",
+        intro_desc: "Tour driver & airport transfer. I can help with the best route, timing, and itinerary based on your needs.",
+        chip1: "Fast response",
+        chip2: "Flexible routes",
+        chip3: "Tourist-friendly",
+        chip4: "Airport pickup",
+
+        services_title: "Main Services",
+        s1t: "Airport Transfer",
+        s1d: "Pickup / drop-off DPS — hotel, villa, or tourist spots (on time).",
+        s2t: "Private Tour",
+        s2d: "Full-day / half-day trips. Route can be fully customized.",
+        s3t: "Beach & Sunset Trip",
+        s3d: "Kuta, Seminyak, Uluwatu, Nusa Dua — great for sunset & photos.",
+        s4t: "Ubud & Nature Trip",
+        s4d: "Tegallalang, waterfalls, coffee spots, and relaxing nature vibes.",
+
+        gallery_title: "Bali Travel Photos",
+        gallery_help: "Tap a photo to open preview + “Create itinerary”.",
+        f_all: "All",
+        f_beach: "Beach",
+        f_temple: "Temple",
+        f_ubud: "Ubud",
+        f_nature: "Nature",
+
+        cap_kuta: "Sunset & beach walk",
+        cap_semi: "Relax & sunset",
+        cap_tl: "Temple + sunset",
+        cap_ulu: "Cliff sunset",
+        cap_ubud: "Culture & chill",
+        cap_teg: "Rice terrace",
+        cap_wf: "Nature trip",
+        cap_np: "Island view",
+        cap_lemp: "Iconic gate",
+        cap_bdg: "Lake & mountain",
+
+        testi_title: "Reviews",
+        t1: "“Polite driver, smooth route, flexible schedule. The trip was comfortable.”",
+        t2: "“Airport pickup was on time. Fast WhatsApp replies. Recommended.”",
+        t3: "“Ubud & Tegallalang trip was well planned. Great timing for photos.”",
+
+        faq_title: "FAQ",
+        f1q: "Can I book last minute?",
+        f1a: "Yes, if the schedule is available. Best to WhatsApp first to confirm.",
+        f2q: "Can I customize the itinerary?",
+        f2a: "Yes. Send pickup, destinations, duration, and preferred time.",
+        f3q: "Why is the estimate blank?",
+        f3a: "Kept blank to stay clean & professional. Price is confirmed quickly via WhatsApp based on route & duration.",
+
+        aside_title: "Contact",
+        aside_desc: "WhatsApp me to check availability and plan your trip.",
+        btn_wa: "Chat WhatsApp",
+        btn_ig: "Instagram",
+        aside_quick: "Quick Info",
+        aq1k: "Services", aq1v: "Tours & Transfer",
+        aq2k: "Pickup", aq2v: "Hotel / Airport",
+        aq3k: "Estimate",
+        aside_example: "<strong>Message example:</strong><br>“Hi Reza, I’d like a Bali tour. Date __, pickup __, duration __, destinations __.”",
+        btn_open_form: "Open Booking Form",
+        wa_small: "Chat",
+
+        lb_cta: "Create itinerary via WhatsApp",
+        lb_back: "Back",
+
+        form_title: "Quick Booking Form",
+        f_name: "Name",
+        f_date: "Date",
+        f_time: "Pickup time",
+        f_type: "Service",
+        f_pickup: "Pickup",
+        f_pax: "Passengers",
+        f_plan: "Destinations / plan",
+        f_est: "Estimate",
+        f_send: "Send to WhatsApp",
+        f_note: "After clicking “Send to WhatsApp”, the message will be pre-filled. Just press send.",
+
+        opt_transfer: "Airport Transfer",
+        opt_tour: "Private Tour",
+        opt_beach: "Beach & Sunset Trip",
+        opt_ubud: "Ubud & Nature Trip",
+        opt_custom: "Custom Itinerary"
+      }
+    };
+
+    function applyLang(){
+      document.documentElement.lang = (lang === "en") ? "en" : "id";
+
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        const val = dict[lang]?.[key];
+        if (!val) return;
+
+        // allow HTML for a few strings (hero tip / aside example)
+        const allowHtmlKeys = new Set(["hero_tip","aside_example"]);
+        if (allowHtmlKeys.has(key)) el.innerHTML = val;
+        else el.textContent = val;
+      });
+
+      // Update modal title prefix if open
+      if (galleryBackdrop.style.display === "block") {
+        lbTitle.textContent = (lang === "en" ? "Bali Spot — " : "Wisata Bali — ") + (lbName.textContent || "Preview");
+      }
+    }
+
+    const langBtn = document.getElementById("langBtn");
+    langBtn.addEventListener("click", ()=>{
+      lang = (lang === "id") ? "en" : "id";
+      applyLang();
+    });
+
+    applyLang();
   </script>
 </body>
 </html>
